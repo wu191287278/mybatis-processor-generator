@@ -444,6 +444,10 @@
                 tableDef.primaryField = fields[i];
             }
         }
+        if (!tableDef.primaryField) {
+            tableDef.primaryField = tableDef.fields[0];
+            tableDef.primaryField.primaryKey = true;
+        }
         console.log(tableDef)
 
         function convertToCamelCase(str) {
