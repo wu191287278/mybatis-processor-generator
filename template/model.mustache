@@ -1,0 +1,43 @@
+package {{{packagePath}}}.domain;
+
+
+import com.vcg.mybatis.example.processor.Example;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import javax.persistence.*;
+
+{{#tableComment}}
+/**
+ * {{tableComment}}.
+ **/
+{{/tableComment}}
+@Example(namespace="{{{packagePath}}}.repository.{{modelName}}Repository")
+@Getter
+@Setter
+@ToString
+@Accessors(chain = true)
+@Entity
+@Table(name = "{{{tableName}}}")
+public class {{{modelName}}} {
+
+{{#fields}}
+    {{#columnComment}}
+    /**
+     * {{{columnComment}}}.
+     */
+    {{/columnComment}}
+    {{#primaryKey}}
+    @Id
+    {{/primaryKey}}
+    {{#autoIncrement}}
+    @GeneratedValue
+    {{/autoIncrement}}
+    @Column(name = "{{columnName}}", columnDefinition = "{{columnType}}"{{#notNull}}, nullable = false{{/notNull}}{{#columnLength}}, length = {{columnLength}}{{/columnLength}}{{#columnScale}}, scale = {{columnScale}}{{/columnScale}})
+    private {{{fieldType}}} {{fieldName}};
+
+{{/fields}}
+
+}

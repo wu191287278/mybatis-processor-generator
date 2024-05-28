@@ -1,0 +1,21 @@
+package {{{packagePath}}}.controller;
+
+
+import {{{packagePath}}}.domain.{{modelName}};
+import {{{packagePath}}}.service.{{modelName}}Service;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+
+
+@RequiredArgsConstructor
+@RequestMapping(value = "api/{{lowerModelName}}")
+@RestController
+public class {{modelName}}Controller {
+
+    private final {{modelName}}Service {{lowerModelName}}Service;
+
+
+}
