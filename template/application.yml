@@ -3,7 +3,7 @@ server:
   shutdown: graceful
 spring:
   datasource:
-    url: jdbc:mysql://localhost/example?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost/users?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
     hikari:
@@ -13,7 +13,13 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
-    default-property-inclusion: non_null
+    default-property-inclusion: NON_NULL
+  data:
+    redis:
+      host: localhost
+      repositories:
+        enabled: false
+      port: 6380
 
 mybatis:
   mapper-locations:
