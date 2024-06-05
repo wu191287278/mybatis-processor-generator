@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./js//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         html,
         body {
@@ -118,12 +118,12 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.bootcdn.net/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2014-11-29/FileSaver.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/jszip/3.1.5/jszip.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/loader.js"></script>
+<script src="./js/cdn.bootcdn.net/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+<script src="./js/cdn.bootcdn.net/ajax/libs/FileSaver.js/2014-11-29/FileSaver.js"></script>
+<script src="./js/cdn.bootcdn.net/ajax/libs/jszip/3.1.5/jszip.js"></script>
+<script src="./js/cdn.bootcdn.net/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="./js/cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/loader.js"></script>
 <script>
     let settingsEditor;
     let queryTemplate;
@@ -140,7 +140,7 @@
             value: settings,
             language: 'sql'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             settingsEditor = monaco.editor.create(container, defaultOption);
 
@@ -156,7 +156,7 @@
             value: template,
             language: 'java'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             queryTemplate = monaco.editor.create(container, defaultOption);
 
@@ -172,7 +172,7 @@
             value: template,
             language: 'java'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             controllerTemplate = monaco.editor.create(container, defaultOption);
 
@@ -188,7 +188,7 @@
             value: template,
             language: 'yaml'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             configTemplate = monaco.editor.create(container, defaultOption);
 
@@ -204,7 +204,7 @@
             value: template,
             language: 'java'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             applicationTemplate = monaco.editor.create(container, defaultOption);
 
@@ -220,7 +220,7 @@
             value: template,
             language: 'xml'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             pomTemplate = monaco.editor.create(container, defaultOption);
 
@@ -236,7 +236,7 @@
             value: template,
             language: 'java'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             modelTemplate = monaco.editor.create(container, defaultOption);
 
@@ -252,7 +252,7 @@
             value: template,
             language: 'java'
         };
-        require.config({paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
         require(['vs/editor/editor.main'], function () {
             serviceTemplate = monaco.editor.create(container, defaultOption);
 
