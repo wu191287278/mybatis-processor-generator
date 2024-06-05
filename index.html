@@ -118,6 +118,7 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="./js/jszip-utils.min.js"></script>
 <script src="./js/cdn.bootcdn.net/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
 <script src="./js/cdn.bootcdn.net/ajax/libs/FileSaver.js/2014-11-29/FileSaver.js"></script>
 <script src="./js/cdn.bootcdn.net/ajax/libs/jszip/3.1.5/jszip.js"></script>
@@ -262,11 +263,17 @@
         });
     }
 
-    function generate() {
+    let baseData = "";
+    JSZipUtils.getBinaryContent('./js/base.zip', async function (err, data) {
+        baseData = data;
+    });
+
+    async function generate() {
         let packagePath = document.getElementById("packagePath").value;
         let artifact = document.getElementById("artifact").value;
         let trimPrefix = document.getElementById("trimPrefix").value;
-        let zip = new JSZip();
+        let zip = await JSZip.loadAsync(baseData);
+
         let settings = settingsEditor.getValue().split(";");
         for (let setting in settings) {
             let sql = settings[setting].trim();
@@ -285,35 +292,44 @@
             let index = tableDefine
             let value = queryTemplate.getValue();
             let render = Mustache.render(value, index);
-            let query = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/repository/" + index["modelName"] + "Repository.java";
+            let query = "src/main/java/" + packagePath.replace(/[.]/g, "/") + "/repository/" + index["modelName"] + "Repository.java";
+            // let query = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/repository/" + index["modelName"] + "Repository.java";
             zip.file(query, render);
 
             value = controllerTemplate.getValue();
             render = Mustache.render(value, index);
-            let controller = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/controller/" + index["modelName"] + "Controller.java";
+            // let controller = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/controller/" + index["modelName"] + "Controller.java";
+            let controller = "src/main/java/" + packagePath.replace(/[.]/g, "/") + "/controller/" + index["modelName"] + "Controller.java";
             zip.file(controller, render);
 
             value = serviceTemplate.getValue();
             render = Mustache.render(value, index);
-            let service = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/service/" + index["modelName"] + "Service.java";
+            let service = "src/main/java/" + packagePath.replace(/[.]/g, "/") + "/service/" + index["modelName"] + "Service.java";
+            // let service = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/service/" + index["modelName"] + "Service.java";
             zip.file(service, render);
 
             value = modelTemplate.getValue();
             let modelName = tableDefine["modelName"];
             render = Mustache.render(value, index);
-            let model = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/domain/" + modelName + ".java";
+            // let model = artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/domain/" + modelName + ".java";
+            let model = "src/main/java/" + packagePath.replace(/[.]/g, "/") + "/domain/" + modelName + ".java";
             console.log(render);
             zip.file(model, render);
 
 
-            zip.file(artifact + "/src/main/resources/mappings/" + sql + ".json", JSON.stringify(mappings, null, 2));
+            // zip.file(artifact + "/src/main/resources/mappings/" + sql + ".json", JSON.stringify(mappings, null, 2));
+            // zip.file("/src/main/resources/mappings/" + sql + ".json", JSON.stringify(mappings, null, 2));
         }
         // zip.file(artifact + "/src/main/resources/mappings/settings.json", JSON.stringify(settings, null, 2));
 
-        let project = {"packagePath": packagePath, "artifact": artifact, packageDir: packagePath.replaceAll(".", "/")};
-        zip.file(artifact + "/pom.xml", Mustache.render(pomTemplate.getValue(), project));
-        zip.file(artifact + "/src/main/resources/application.yml", Mustache.render(configTemplate.getValue(), project));
-        zip.file(artifact + "/src/main/java/" + packagePath.replace(/[.]/g, "/") + "/Application.java", Mustache.render(applicationTemplate.getValue(), project));
+        let project = {
+            "packagePath": packagePath,
+            "artifact": artifact,
+            packageDir: packagePath.replaceAll(".", "/")
+        };
+        zip.file("pom.xml", Mustache.render(pomTemplate.getValue(), project));
+        zip.file("src/main/resources/application.yml", Mustache.render(configTemplate.getValue(), project));
+        zip.file("src/main/java/" + packagePath.replace(/[.]/g, "/") + "/Application.java", Mustache.render(applicationTemplate.getValue(), project));
         console.log(Mustache.render(configTemplate.getValue(), project))
         zip.generateAsync({type: "blob"})
             .then(function (content) {
