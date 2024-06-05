@@ -394,8 +394,8 @@
             let columnComment = "";
             let notNull = columnDe.toUpperCase().indexOf("NOT NULL") !== -1;
             let autoIncrement = columnDe.toUpperCase().indexOf("AUTO_INCREMENT") !== -1;
-            if (split[split.length - 2].toUpperCase() === "COMMENT") {
-                columnComment = split[split.length - 1]
+            if (columnDe.indexOf("COMMENT") !== -1) {
+                columnComment = columnDe.substring(columnDe.indexOf("COMMENT") + 7, columnDe.lastIndexOf("'"))
             }
             if (columnType.indexOf("(") !== -1) {
                 let lengths = columnType.split("(")[1];
