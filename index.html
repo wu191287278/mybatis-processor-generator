@@ -439,8 +439,10 @@
                 notNull: notNull,
             }
 
-            if (columnLength > 0) {
-                filed.columnLength = columnLength;
+            if (columnLength > 0 ) {
+                if(columnLength !== "255"){
+                    filed.columnLength = columnLength;
+                }
             }
 
             if (columnScale > 0) {
