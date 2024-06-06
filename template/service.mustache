@@ -1,20 +1,24 @@
 package {{{packagePath}}}.service;
 
+import com.vcg.mybatis.example.processor.BaseService;
 
 import {{{packagePath}}}.domain.{{modelName}};
+import {{{packagePath}}}.domain.{{modelName}}Example;
 import {{{packagePath}}}.repository.{{modelName}}Repository;
 
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.RequiredArgsConstructor;
 
 
-@RequiredArgsConstructor
 @Slf4j
 @Service
-public class {{{modelName}}}Service {
+public class {{{modelName}}}Service extends BaseService<{{{modelName}}}, {{{primaryField.fieldType}}}, {{{modelName}}}Example> {
 
     private final {{{modelName}}}Repository {{{lowerModelName}}}Repository;
 
+    public {{{modelName}}}Service({{{modelName}}}Repository {{{lowerModelName}}}Repository){
+        super({{{lowerModelName}}}Repository,{{{modelName}}}::get{{{primaryField.firstUpFieldName}}});
+        this.{{{lowerModelName}}}Repository = {{{lowerModelName}}}Repository;
+    }
 }
