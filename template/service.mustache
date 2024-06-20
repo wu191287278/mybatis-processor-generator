@@ -18,7 +18,8 @@ public class {{{modelName}}}Service extends BaseService<{{{modelName}}}, {{{prim
     private final {{{modelName}}}Repository {{{lowerModelName}}}Repository;
 
     public {{{modelName}}}Service({{{modelName}}}Repository {{{lowerModelName}}}Repository){
-        super({{{lowerModelName}}}Repository,{{{modelName}}}::get{{{primaryField.firstUpFieldName}}});
+        super({{{lowerModelName}}}Repository, {{{modelName}}}::get{{{primaryField.firstUpFieldName}}});
         this.{{{lowerModelName}}}Repository = {{{lowerModelName}}}Repository;
     }
+
 }
