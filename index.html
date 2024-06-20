@@ -107,6 +107,11 @@
                         <input type='text' class='form-control' id="trimPrefix" value="tb_,t_"
                                placeholder="tb_">
                     </div>
+                    <div class='form-group'>
+                        <label>Add Prefix:</label>
+                        <input type='text' class='form-control' id="addPrefix" value=""
+                               placeholder="Business">
+                    </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-default'
                                 data-dismiss='modal'>Close
@@ -272,6 +277,7 @@
         let packagePath = document.getElementById("packagePath").value;
         let artifact = document.getElementById("artifact").value;
         let trimPrefix = document.getElementById("trimPrefix").value;
+        let addPrefix = document.getElementById("addPrefix").value;
         let zip = await JSZip.loadAsync(baseData);
 
         let settings = settingsEditor.getValue().split(";");
@@ -284,7 +290,7 @@
                 continue;
             }
             let mappings = settings[sql];
-            let tableDefine = getFields(sql, trimPrefix);
+            let tableDefine = getFields(sql, trimPrefix, addPrefix);
             tableDefine.artifact = artifact;
             tableDefine.application = upperCamel(artifact);
             tableDefine.packagePath = packagePath;
@@ -338,7 +344,7 @@
 
     }
 
-    function getFields(value, trimPrefix) {
+    function getFields(value, trimPrefix, addPrefix) {
         let start = value.indexOf("(");
         let end = value.lastIndexOf(")");
         let tableSplit = value.split(/\s+/g);
@@ -362,6 +368,9 @@
                     modelName = upperCamel(tableName.substring(trimPrefixSplit[i].length));
                 }
             }
+        }
+        if (addPrefix) {
+            modelName = addPrefix + modelName;
         }
 
         let columnsDe = value.substring(start + 1, end);
@@ -439,8 +448,8 @@
                 notNull: notNull,
             }
 
-            if (columnLength > 0 ) {
-                if(columnLength !== "255"){
+            if (columnLength > 0) {
+                if (columnLength !== "255") {
                     filed.columnLength = columnLength;
                 }
             }
