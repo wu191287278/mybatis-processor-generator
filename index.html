@@ -47,8 +47,9 @@
                     </div>
                     <button type="button" class="btn btn-default" onclick="clearCache()">Reset</button>
                     <button type="button" class="btn btn-default" onclick="save()">Save</button>
-                    <button type="button" class="btn btn-default" onclick="generatorSpringBootPop()">Generate
-                    </button>
+                    <button type="button" class="btn btn-default" onclick="generatorOnline()">GenerateOnline
+                        <button type="button" class="btn btn-default" onclick="generatorSpringBootPop()">Download
+                        </button>
                 </div>
 
             </div>
@@ -141,131 +142,187 @@
     let serviceTemplate;
 
     function loadSettingsEditor(settings) {
-        let container = document.getElementById('settingTemplate');
-        let defaultOption = {
-            value: settings,
-            language: 'sql'
-        };
         require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            settingsEditor = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                settingsEditor.layout();
+        if (settingsEditor) {
+            require(['vs/editor/editor.main'], function () {
+                let model = settingsEditor.getModel()
+                model.setValue(settings)
+            });
+        } else {
+            let container = document.getElementById('settingTemplate');
+            let defaultOption = {
+                value: settings,
+                language: 'sql'
             };
-        });
+            require(['vs/editor/editor.main'], function () {
+                settingsEditor = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    settingsEditor.layout();
+                };
+            });
+        }
     }
 
     function loadQueryTemplateEditor(template) {
-        let container = document.getElementById('queryTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'java'
-        };
         require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            queryTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                queryTemplate.layout();
+        if (queryTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = queryTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('queryTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'java'
             };
-        });
+            require(['vs/editor/editor.main'], function () {
+                queryTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    queryTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadControllerTemplateEditor(template) {
-        let container = document.getElementById('controllerTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'java'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            controllerTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                controllerTemplate.layout();
+        if (controllerTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = controllerTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('controllerTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'java'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                controllerTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    controllerTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadConfigTemplateEditor(template) {
-        let container = document.getElementById('configTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'yaml'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            configTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                configTemplate.layout();
+        if (configTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = configTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('configTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'yaml'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                configTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    configTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadApplicationTemplateEditor(template) {
-        let container = document.getElementById('applicationTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'java'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            applicationTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                applicationTemplate.layout();
+        if (applicationTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = applicationTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('applicationTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'java'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                applicationTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    applicationTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadPomTemplateEditor(template) {
-        let container = document.getElementById('pomTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'xml'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            pomTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                pomTemplate.layout();
+        if (pomTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = pomTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('pomTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'xml'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                pomTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    pomTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadModelTemplateEditor(template) {
-        let container = document.getElementById('modelTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'java'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            modelTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                pomTemplate.layout();
+        if (modelTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = modelTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('modelTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'java'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                modelTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    pomTemplate.layout();
+                };
+            });
+        }
     }
 
     function loadServiceTemplateEditor(template) {
-        let container = document.getElementById('serviceTemplate');
-        let defaultOption = {
-            value: template,
-            language: 'java'
-        };
-        require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
-        require(['vs/editor/editor.main'], function () {
-            serviceTemplate = monaco.editor.create(container, defaultOption);
-
-            window.onresize = function () {
-                pomTemplate.layout();
+        if (serviceTemplate) {
+            require(['vs/editor/editor.main'], function () {
+                let model = serviceTemplate.getModel()
+                model.setValue(template)
+            });
+        } else {
+            let container = document.getElementById('serviceTemplate');
+            let defaultOption = {
+                value: template,
+                language: 'java'
             };
-        });
+            require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
+            require(['vs/editor/editor.main'], function () {
+                serviceTemplate = monaco.editor.create(container, defaultOption);
+
+                window.onresize = function () {
+                    pomTemplate.layout();
+                };
+            });
+        }
     }
 
     let baseData = "";
@@ -799,6 +856,46 @@
 
     function generatorSpringBootPop() {
         $('#generatorSpringBootPop').modal('toggle')
+    }
+
+    function generatorOnline() {
+        let packagePath = document.getElementById("packagePath").value;
+        let artifact = document.getElementById("artifact").value;
+        let trimPrefix = document.getElementById("trimPrefix").value;
+
+        let settings = settingsEditor.getValue().split(";");
+        for (let setting in settings) {
+            let sql = settings[setting].trim();
+            if (sql === "") {
+                continue;
+            }
+            if (!sql.toUpperCase().startsWith("CREATE")) {
+                continue;
+            }
+            let mappings = settings[sql];
+            let tableDefine = getFields(sql, trimPrefix);
+            tableDefine.artifact = artifact;
+            tableDefine.application = upperCamel(artifact);
+            tableDefine.packagePath = packagePath;
+            tableDefine.packageDir = packagePath.replaceAll(".", "/");
+            let index = tableDefine
+            let value = queryTemplate.getValue();
+            let render = Mustache.render(value, index);
+            loadQueryTemplateEditor(render)
+
+            value = controllerTemplate.getValue();
+            render = Mustache.render(value, index);
+            loadControllerTemplateEditor(render)
+
+            value = serviceTemplate.getValue();
+            render = Mustache.render(value, index);
+            loadServiceTemplateEditor(render)
+
+            value = modelTemplate.getValue();
+            render = Mustache.render(value, index);
+            loadModelTemplateEditor(render)
+
+        }
     }
 </script>
 </body>
