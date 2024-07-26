@@ -969,7 +969,7 @@
 
             value = modelTemplate.getValue();
             render = Mustache.render(value, index);
-            modelNodes.push({text: index.modelName + "Model", tag: render})
+            modelNodes.push({text: index.modelName, tag: render})
 
         }
         $('#treeview').treeview({
