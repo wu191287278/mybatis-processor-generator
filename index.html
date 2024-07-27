@@ -910,6 +910,7 @@
         let packagePath = document.getElementById("packagePath").value;
         let artifact = document.getElementById("artifact").value;
         let trimPrefix = document.getElementById("trimPrefix").value;
+        let addPrefix = document.getElementById("addPrefix").value;
         let packageDir = packagePath.replaceAll(".", "/");
         let queryNodes = [];
         let modelNodes = [];
@@ -948,7 +949,7 @@
             if (!sql.toUpperCase().startsWith("CREATE")) {
                 continue;
             }
-            let tableDefine = getFields(sql, trimPrefix);
+            let tableDefine = getFields(sql, trimPrefix, addPrefix);
             tableDefine.artifact = artifact;
             tableDefine.application = upperCamel(artifact);
             tableDefine.packagePath = packagePath;
