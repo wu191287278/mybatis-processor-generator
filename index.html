@@ -111,7 +111,12 @@
                     <div class='form-group'>
                         <label>Add Prefix:</label>
                         <input type='text' class='form-control' id="addPrefix" value=""
-                               placeholder="Business">
+                               placeholder="Prefix">
+                    </div>
+                    <div class='form-group'>
+                        <label>Add Suffix:</label>
+                        <input type='text' class='form-control' id="addSuffix" value=""
+                               placeholder="Suffix">
                     </div>
                     <div class='modal-footer'>
                         <button type="button" onclick="generatorSpringBootView()" class='btn btn-primary'>Preview
@@ -382,6 +387,7 @@
         let artifact = document.getElementById("artifact").value;
         let trimPrefix = document.getElementById("trimPrefix").value;
         let addPrefix = document.getElementById("addPrefix").value;
+        let addSuffix = document.getElementById("addSuffix").value;
         let zip = await JSZip.loadAsync(baseData);
 
         let settings = settingsEditor.getValue().split(";");
@@ -393,7 +399,7 @@
             if (!sql.trim().toUpperCase().startsWith("CREATE")) {
                 continue;
             }
-            let tableDefine = getFields(sql, trimPrefix, addPrefix);
+            let tableDefine = getFields(sql, trimPrefix, addPrefix, addSuffix);
             tableDefine.artifact = artifact;
             tableDefine.application = upperCamel(artifact);
             tableDefine.packagePath = packagePath;
@@ -447,7 +453,7 @@
 
     }
 
-    function getFields(value, trimPrefix, addPrefix) {
+    function getFields(value, trimPrefix, addPrefix, addSuffix) {
         let start = value.indexOf("(");
         let end = value.lastIndexOf(")");
         let tableSplit = value.split(/\s+/g);
@@ -474,6 +480,9 @@
         }
         if (addPrefix) {
             modelName = addPrefix + modelName;
+        }
+        if (addSuffix) {
+            modelName = modelName + addSuffix;
         }
 
         let columnsDe = value.substring(start + 1, end);
@@ -910,6 +919,7 @@
         let artifact = document.getElementById("artifact").value;
         let trimPrefix = document.getElementById("trimPrefix").value;
         let addPrefix = document.getElementById("addPrefix").value;
+        let addSuffix = document.getElementById("addSuffix").value;
         let packageDir = packagePath.replaceAll(".", "/");
         let queryNodes = [];
         let modelNodes = [];
@@ -948,7 +958,7 @@
             if (!sql.trim().toUpperCase().startsWith("CREATE")) {
                 continue;
             }
-            let tableDefine = getFields(sql, trimPrefix, addPrefix);
+            let tableDefine = getFields(sql, trimPrefix, addPrefix, addSuffix);
             tableDefine.artifact = artifact;
             tableDefine.application = upperCamel(artifact);
             tableDefine.packagePath = packagePath;
