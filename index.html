@@ -390,10 +390,9 @@
             if (sql === "") {
                 continue;
             }
-            if (!sql.toUpperCase().startsWith("CREATE")) {
+            if (!sql.trim().toUpperCase().startsWith("CREATE")) {
                 continue;
             }
-            let mappings = settings[sql];
             let tableDefine = getFields(sql, trimPrefix, addPrefix);
             tableDefine.artifact = artifact;
             tableDefine.application = upperCamel(artifact);
@@ -946,7 +945,7 @@
             if (sql === "") {
                 continue;
             }
-            if (!sql.toUpperCase().startsWith("CREATE")) {
+            if (!sql.trim().toUpperCase().startsWith("CREATE")) {
                 continue;
             }
             let tableDefine = getFields(sql, trimPrefix, addPrefix);
