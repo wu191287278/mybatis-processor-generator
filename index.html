@@ -121,14 +121,14 @@
                     <div class='modal-footer'>
                         <button type="button" onclick="generatorSpringBootView()" class='btn btn-primary'>Preview
                         </button>
-                        <button type="submit" class='btn btn-success'>Generate</button>
+                        <button type="submit" class='btn btn-success'>Download</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<div class='modal' id='generatorSpringBootView' style="width: 100%;height: 900px;overflow: hidden">
+<div class='modal' id='generatorSpringBootView' style="width: 100%;height: 900px;overflow: hidden;">
     <div class='modal-dialog modal-lg' style="width: 100%;height: 900px">
         <div class='modal-content'>
             <div class='modal-header'>
@@ -948,9 +948,10 @@
                 tag: Mustache.render(applicationTemplate.getValue(), {packagePath: packagePath})
             }
         ];
+        let project = {packagePath: packagePath, artifact: artifact};
         let data = [
             {
-                text: "/src/main/",
+                text: "src/main",
                 nodes: [
                     {
                         text: "java/" + packageDir,
@@ -960,14 +961,14 @@
                         text: "resources",
                         nodes: [{
                             text: "application.yml",
-                            tag: Mustache.render(configTemplate.getValue(), {packagePath: packagePath})
+                            tag: Mustache.render(configTemplate.getValue(), project)
                         }]
                     }
                 ]
             },
             {
                 text: "pom.xml",
-                tag: Mustache.render(pomTemplate.getValue(), {packagePath: packagePath, artifact: artifact})
+                tag: Mustache.render(pomTemplate.getValue(), project)
             }
 
         ];

@@ -2,6 +2,8 @@ server:
   port: 8080
   shutdown: graceful
 spring:
+  application:
+    name: {{{artifact}}}
   datasource:
     url: jdbc:mysql://localhost/users?useSSL=false&allowPublicKeyRetrieval=true
     username: root
@@ -19,7 +21,7 @@ spring:
       host: localhost
       repositories:
         enabled: false
-      port: 6380
+      port: 6379
 
 mybatis:
   mapper-locations:
