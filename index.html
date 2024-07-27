@@ -948,7 +948,7 @@
                 tag: Mustache.render(applicationTemplate.getValue(), {packagePath: packagePath})
             }
         ];
-        let project = {packagePath: packagePath, artifact: artifact};
+        let project = {packagePath: packagePath, artifact: artifact, packageDir: packageDir};
         let data = [
             {
                 text: "src/main",
