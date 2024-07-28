@@ -471,10 +471,14 @@
 
         let modelName = upperCamel(tableName);
         if (trimPrefix) {
+            let subTableName = tableName;
             let trimPrefixSplit = trimPrefix.split(",");
             for (let i = 0; i < trimPrefixSplit.length; i++) {
-                if (tableName.startsWith(trimPrefixSplit[i])) {
-                    modelName = upperCamel(tableName.substring(trimPrefixSplit[i].length));
+                let trimIte = trimPrefixSplit[i].trim();
+                if (subTableName.startsWith(trimIte)) {
+                    subTableName = subTableName.substring(trimIte.length)
+                    modelName = upperCamel(subTableName);
+                    break;
                 }
             }
         }
