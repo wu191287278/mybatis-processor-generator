@@ -4,6 +4,11 @@ import com.vcg.mybatis.example.starter.MybatisCrudRepository;
 import {{{packagePath}}}.domain.{{{modelName}}};
 import {{{packagePath}}}.domain.{{{modelName}}}Example;
 
+{{#tableComment}}
+/**
+ * {{tableComment}}.
+ **/
+{{/tableComment}}
 public interface {{{modelName}}}Repository extends MybatisCrudRepository<{{{modelName}}}, {{{primaryField.fieldType}}}, {{{modelName}}}Example> {
 
 }

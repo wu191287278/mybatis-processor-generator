@@ -1,0 +1,25 @@
+package {{{packagePath}}}.service;
+
+import {{{packagePath}}}.Application;
+import {{{packagePath}}}.domain.{{modelName}};
+import {{{packagePath}}}.domain.{{modelName}}Example;
+import {{{packagePath}}}.repository.{{modelName}}Repository;
+import {{{packagePath}}}.service.{{modelName}}Service;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest(classes = Application.class)
+@Slf4j
+public class {{modelName}}ServiceTest {
+
+    @Autowired
+    private {{modelName}}Service {{lowerModelName}}Service;
+
+    @Autowired
+    private {{modelName}}Repository {{lowerModelName}}Repository;
+
+
+
+}

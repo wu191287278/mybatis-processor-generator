@@ -169,6 +169,8 @@
     let modelTemplate;
     let serviceTemplate;
     let treeTemplate;
+    let testTemplate;
+
 
     function loadSettingsEditor(settings) {
         require.config({paths: {'vs': './js/cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/'}});
@@ -308,6 +310,7 @@
         }
     }
 
+
     function loadPomTemplateEditor(template) {
         if (pomTemplate) {
             require(['vs/editor/editor.main'], function () {
@@ -430,6 +433,7 @@
             let model = "src/main/java/" + packagePath.replace(/[.]/g, "/") + "/domain/" + modelName + ".java";
             console.log(render);
             zip.file(model, render);
+            zip.file("src/test/java/" + packagePath.replace(/[.]/g, "/") + "/service/" + modelName + "ServiceTest.java", Mustache.render(testTemplate, index));
 
 
             // zip.file(artifact + "/src/main/resources/mappings/" + sql + ".json", JSON.stringify(mappings, null, 2));
@@ -820,6 +824,20 @@
         }
     }
 
+    function loadServiceTestTemplate() {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                testTemplate = xhr.responseText;
+            } else {
+                alert(xhr.status);
+            }
+        };
+
+        xhr.open("get", "./template/service_test.mustache");
+        xhr.send(null);
+    }
+
 
     function loadingModelEditor() {
         let storage = window.localStorage;
@@ -870,6 +888,7 @@
     loadingPomEditor();
     loadingModelEditor();
     loadingServiceEditor();
+    loadServiceTestTemplate();
 
     function clearCache() {
         let storage = window.localStorage;
@@ -930,6 +949,7 @@
         let modelNodes = [];
         let serviceNodes = [];
         let controllerNodes = [];
+        let testNodes = [];
         let nodes = [
             {
                 text: "domain",
@@ -955,20 +975,43 @@
         let project = {packagePath: packagePath, artifact: artifact, packageDir: packageDir};
         let data = [
             {
-                text: "src/main",
-                nodes: [
+                text: "src",
+                nodes: [{
+                    text: "main",
+                    nodes: [
+                        {
+                            text: "java",
+                            nodes: [
+                                {
+                                    text: packagePath,
+                                    nodes: nodes,
+                                }
+                            ]
+                        },
+                        {
+                            text: "resources",
+                            nodes: [{
+                                text: "application.yml",
+                                tag: Mustache.render(configTemplate.getValue(), project)
+                            }]
+                        }
+                    ]
+                },
                     {
-                        text: "java/" + packageDir,
-                        nodes: nodes,
-                    },
-                    {
-                        text: "resources",
-                        nodes: [{
-                            text: "application.yml",
-                            tag: Mustache.render(configTemplate.getValue(), project)
-                        }]
+                        text: "test",
+                        nodes: [
+                            {
+                                text: "java",
+                                nodes: [
+                                    {
+                                        text: packagePath,
+                                        nodes: testNodes,
+                                    }
+                                ]
+                            }
+                        ]
                     }
-                ]
+                    ]
             },
             {
                 text: "pom.xml",
@@ -1007,6 +1050,10 @@
             value = modelTemplate.getValue();
             render = Mustache.render(value, index);
             modelNodes.push({text: index.modelName, tag: render})
+
+            render = Mustache.render(testTemplate, index);
+            testNodes.push({text: index.modelName + "ServiceTest", tag: render})
+
 
         }
         $('#treeview').treeview({
